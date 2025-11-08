@@ -11,10 +11,15 @@ interface HourlyData {
 export default function Home() {
   const [hourlyData, setHourlyData] = useState<HourlyData>()
 
+  /*
+  TODO: I want you to display all the temperatures in ºF!
+   */
+
   async function fetchWeather() {
     const data = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.72&longitude=-95.4&hourly=temperature_2m&forecast_days=1')
     const json = await data.json()
-    setHourlyData(json.hourly);
+    const hourly = json.hourly as HourlyData
+    setHourlyData(hourly);
   }
 
   // Run once on mount
