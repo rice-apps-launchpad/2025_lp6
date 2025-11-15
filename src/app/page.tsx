@@ -12,7 +12,7 @@ export default function Home() {
   const [hourlyData, setHourlyData] = useState<HourlyData>()
 
   /*
-  TODO: I want you to display all the temperatures in ºF!
+  TODO: I want you to get the wind speed rather than the temperatures!
    */
 
   async function fetchWeather() {
