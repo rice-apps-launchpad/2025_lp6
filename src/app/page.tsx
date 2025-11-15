@@ -1,25 +1,25 @@
 'use client';
 
-import styles from "./page.module.css";
 import {useEffect, useState} from "react";
 
-interface HourlyData {
-  time: Array<string> // A list of times
-  temperature_2m: Array<number> // A list of temperatures at those respective times, corresponding to index
-}
+const styles = {
+  page: {
+    alignItems: "center",
+    justifyItems: "center",
+    gap: "64px",
+  },
+  main: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "32px",
+  }
+} as const;
 
 export default function Home() {
-  const [hourlyData, setHourlyData] = useState<HourlyData>()
-
-  /*
-  TODO: I want you to get the wind speed rather than the temperatures!
-   */
-
   async function fetchWeather() {
     const data = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.72&longitude=-95.4&hourly=temperature_2m&forecast_days=1')
     const json = await data.json()
-    const hourly = json.hourly as HourlyData
-    setHourlyData(hourly);
+    // TODO
   }
 
   // Run once on mount
@@ -28,14 +28,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    <div style={styles.page}>
+      <main style={styles.main}>
         <ul>
-          {hourlyData?.time.map((time, index) => (
-            <li key={index}>
-              {time}: <strong>{hourlyData?.temperature_2m[index]}°C</strong>
-            </li>
-          ))}
+
         </ul>
       </main>
     </div>
