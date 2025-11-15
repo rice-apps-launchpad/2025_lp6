@@ -1,39 +1,40 @@
-'use client';
-
-import {useEffect, useState} from "react";
+import Link from "next/link";
 
 const styles = {
   page: {
+    display: "grid", // Using this to center the items
     alignItems: "center",
     justifyItems: "center",
     gap: "64px",
+    minHeight: "100svh",
   },
   main: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     gap: "32px",
   }
 } as const;
 
-export default function Home() {
-  async function fetchWeather() {
-    const data = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.72&longitude=-95.4&hourly=temperature_2m&forecast_days=1')
-    const json = await data.json()
-    // TODO
-  }
-
-  // Run once on mount
-  useEffect(() => {
-    fetchWeather();
-  }, []);
-
+export default function Page() {
   return (
     <div style={styles.page}>
-      <main style={styles.main}>
-        <ul>
-          // TODO
-        </ul>
-      </main>
+      <div style={styles.main}>
+        <PageButton href={"/location"} buttonText={"Location Picker Screen"} />
+        <PageButton href={"/weather"} buttonText={"Weather Screen"} />
+      </div>
     </div>
-  );
+  )
+}
+
+interface PageButtonProps {
+  href: string;
+  buttonText: string;
+}
+
+function PageButton(props: PageButtonProps) {
+  return (
+    <Link href={props.href}>
+      <button>{props.buttonText}</button>
+    </Link>
+  )
 }
